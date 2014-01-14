@@ -1,3 +1,7 @@
+// The package provides methods for converting amounts between currencies. The
+// exchange rates are provided by the ECB (http://www.ecb.europa.eu/).
+//
+// Author: Michael Banzon
 package currency
 
 import (
