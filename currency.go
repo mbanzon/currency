@@ -16,7 +16,6 @@ type Envelope struct {
 	subject string
 	Sender  string `xml:"Sender>name"`
 	Cube    []Cube `xml:"Cube>Cube>Cube"`
-	//	Time    TimeCube `xml:"Cube>Cube"`
 }
 
 type TimeCube struct {
@@ -24,7 +23,6 @@ type TimeCube struct {
 }
 
 type Cube struct {
-	//time     string `xml:"time,attr"`
 	Currency string `xml:"currency,attr"`
 	Rate     string `xml:"rate,attr"`
 }
