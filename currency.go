@@ -5,26 +5,33 @@
 package currency
 
 import (
+	"encoding/xml"
 	"fmt"
 	"github.com/mbanzon/simplehttp"
 	"time"
 )
 
-const ecbResourceUrl = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"
+const (
+	ecbResourceUrl = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"
+	dateFormat     = "2006-01-02"
+)
 
-type Envelope struct {
-	subject string
-	Sender  string `xml:"Sender>name"`
-	Cube    []Cube `xml:"Cube>Cube>Cube"`
+type currencyEnvelope struct {
+	Sender string `xml:"Sender>name"`
+	Cube   []cube `xml:"Cube>Cube>Cube"`
 }
 
-type TimeCube struct {
+type timeEnvelope struct {
+	Time timeCube `xml:"Cube>Cube"`
+}
+
+type timeCube struct {
 	Time string `xml:"time,attr"`
 }
 
-type Cube struct {
-	Currency string `xml:"currency,attr"`
-	Rate     string `xml:"rate,attr"`
+type cube struct {
+	Name string  `xml:"currency,attr"`
+	Rate float64 `xml:"rate,attr"`
 }
 
 type CurrencyConverter struct {
@@ -33,17 +40,35 @@ type CurrencyConverter struct {
 }
 
 func NewConverter() (*CurrencyConverter, error) {
-	var e Envelope
 	r := simplehttp.NewGetRequest(ecbResourceUrl)
-	r.MakeXMLRequest(&e)
+	data, err := r.MakeRequest()
+	if err != nil {
+		return nil, err
+	}
 
-	fmt.Printf("%#v\n", e)
+	var c currencyEnvelope
+	err = xml.Unmarshal(data, &c)
+	if err != nil {
+		return nil, err
+	}
 
-	var foo map[string]string
-	re := simplehttp.NewGetRequest(ecbResourceUrl)
-	re.MakeXMLRequest(&foo)
+	var t timeEnvelope
+	err = xml.Unmarshal(data, &t)
+	if err != nil {
+		return nil, err
+	}
 
-	fmt.Printf("%#v\n", foo)
+	currencyTime, err := time.Parse(dateFormat, t.Time.Time)
+	if err != nil {
+		return nil, err
+	}
 
-	return &CurrencyConverter{}, nil
+	currencies := make(map[string]float64)
+
+	for _, currency := range c.Cube {
+		currencies[currency.Name] = currency.Rate
+	}
+
+	converter := CurrencyConverter{date: currencyTime, currencies: currencies}
+	return &converter, nil
 }
