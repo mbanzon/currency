@@ -16,12 +16,17 @@ type Envelope struct {
 	subject string
 	Sender  string `xml:"Sender>name"`
 	Cube    []Cube `xml:"Cube>Cube>Cube"`
+	//	Time    TimeCube `xml:"Cube>Cube"`
+}
+
+type TimeCube struct {
+	Time string `xml:"time,attr"`
 }
 
 type Cube struct {
 	//time     string `xml:"time,attr"`
-	currency string `xml:"currency,attr"`
-	rate     string `xml:"rate,attr"`
+	Currency string `xml:"currency,attr"`
+	Rate     string `xml:"rate,attr"`
 }
 
 type CurrencyConverter struct {
