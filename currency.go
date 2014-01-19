@@ -35,6 +35,11 @@ func NewConverter() (*CurrencyConverter, error) {
 	return &converter, nil
 }
 
+func (c *CurrencyConverter) Age() float64 {
+	delta := c.date.Sub(time.Now())
+	return delta.Hours() / 24
+}
+
 func (c *CurrencyConverter) Convert(amount float64, from string, to string) (float64, error) {
 	fromRate, fromOk := c.currencies[from]
 	if !fromOk {
