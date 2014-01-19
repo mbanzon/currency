@@ -40,6 +40,16 @@ func (c *CurrencyConverter) Age() float64 {
 	return delta.Hours() / 24
 }
 
+func (c *CurrencyConverter) ShouldRenew() bool {
+	if c.Age() >= 1 {
+		today := time.Now()
+		if today.Weekday() > time.Sunday && today.Weekday() < time.Saturday {
+			return true
+		}
+	}
+	return false
+}
+
 func (c *CurrencyConverter) Convert(amount float64, from string, to string) (float64, error) {
 	fromRate, fromOk := c.currencies[from]
 	if !fromOk {
