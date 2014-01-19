@@ -10,7 +10,7 @@ The raw XML feed with currencies can be found here: http://www.ecb.europa.eu/sta
 
 The library enables easy conversion between currencies like this:
 
-```
+```Go
 ecb, _ := currency.NewConverter()
 from, to := "DKK", "GBP"
 amount := 100.0
@@ -20,7 +20,7 @@ fmt.Printf("%f in %s is %f in %s\n", amount, from, converted, to)
 
 The library lets you create a fixed converter that converts between two fixed currencies:
 
-```
+```Go
 ecb, _ := currency.NewConverter()
 single, _ := ecb.GetSingleCurrencyConverter(from, to)
 fmt.Printf("%f in %s is %f in %s\n", amount, from, single.Convert(amount), to)
