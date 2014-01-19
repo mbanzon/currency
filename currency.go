@@ -49,6 +49,19 @@ func (c *CurrencyConverter) Convert(amount float64, from string, to string) (flo
 	return amount / fromRate * toRate, nil
 }
 
+func (c *CurrencyConverter) MultiConvert(amounts []float64, from, to string) ([]float64, error) {
+	convertedAmounts := make([]float64, len(amounts))
+	var e error
+	for i, amount := range amounts {
+		converted, err := c.Convert(amount, from, to)
+		if err != nil {
+			e = err
+		}
+		convertedAmounts[i] = converted
+	}
+	return convertedAmounts, e
+}
+
 func (c *CurrencyConverter) GetSingleCurrencyConverter(from, to string) (*SingleCurrencyConverter, error) {
 	fromRate, fromOk := c.currencies[from]
 	if !fromOk {
@@ -65,4 +78,12 @@ func (c *CurrencyConverter) GetSingleCurrencyConverter(from, to string) (*Single
 
 func (c *SingleCurrencyConverter) Convert(amount float64) float64 {
 	return amount / c.fromRate * c.toRate
+}
+
+func (c *SingleCurrencyConverter) MultiConvert(amounts []float64) []float64 {
+	converted := make([]float64, len(amounts))
+	for i, amount := range amounts {
+		converted[i] = c.Convert(amount)
+	}
+	return converted
 }
