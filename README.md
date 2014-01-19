@@ -1,6 +1,8 @@
 currency
 ========
 
+[![Build Status](https://travis-ci.org/mbanzon/currency.png?branch=master)](https://travis-ci.org/mbanzon/currency)
+
 This is a simple currency conversion library for Go.
 
 The currencies exchange rates are fetched from the European Central Bank (ECB).
