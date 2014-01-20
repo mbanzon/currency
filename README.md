@@ -21,6 +21,8 @@ fmt.Printf("%f in %s is %f in %s\n", amount, from, converted, to)
 The library lets you create a fixed converter that converts between two fixed currencies:
 
 ```Go
+from, to := "DKK", "GBP"
+amount := 100.0
 ecb, _ := currency.NewConverter()
 single, _ := ecb.GetSingleCurrencyConverter(from, to)
 fmt.Printf("%f in %s is %f in %s\n", amount, from, single.Convert(amount), to)
