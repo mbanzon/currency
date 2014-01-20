@@ -55,6 +55,8 @@ func parseEcbData() (time.Time, map[string]float64, error) {
 
 	currencies := make(map[string]float64)
 
+	currencies[eur] = 1
+
 	for _, currency := range c.Cube {
 		currencies[currency.Name] = currency.Rate
 	}
