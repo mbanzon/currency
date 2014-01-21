@@ -50,6 +50,16 @@ func (c *CurrencyConverter) ShouldRenew() bool {
 	return false
 }
 
+func (c *CurrencyConverter) Renew() error {
+	date, currencies, err := parseEcbData()
+	if err != nil {
+		return err
+	} else {
+		c.date = date
+		c.currencies = currencies
+	}
+}
+
 func (c *CurrencyConverter) Convert(amount float64, from string, to string) (float64, error) {
 	fromRate, fromOk := c.currencies[from]
 	if !fromOk {
