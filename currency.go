@@ -15,17 +15,22 @@ const (
 	unknown = "Unknown currency: %s"
 )
 
+// The CurrencyConverter struct holds the data that enables the conversion.
+// Upon creation the data is fetched from the ECB and parsed into the struct.
 type CurrencyConverter struct {
 	date       time.Time
 	currencies map[string]float64
 }
 
+// The SingleCurrencyConverter struct holds data about how to convert amounts
+// between two pre-defined currencies.
 type SingleCurrencyConverter struct {
 	date             time.Time
 	from, to         string
 	fromRate, toRate float64
 }
 
+// Creates a new converter by fetching the required data from the ECB.
 func NewConverter() (*CurrencyConverter, error) {
 	currencyTime, currencies, err := parseEcbData()
 	if err != nil {
@@ -35,6 +40,8 @@ func NewConverter() (*CurrencyConverter, error) {
 	return &converter, nil
 }
 
+// Calculates the age in days of the CurrencyConverter. The age is calculated
+// using the date supplied in the currency feed from the ECB.
 func (c *CurrencyConverter) Age() float64 {
 	delta := c.date.Sub(time.Now())
 	return delta.Hours() / 24
