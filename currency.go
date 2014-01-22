@@ -64,6 +64,7 @@ func (c *CurrencyConverter) Renew() error {
 	} else {
 		c.date = date
 		c.currencies = currencies
+		return nil
 	}
 }
 
