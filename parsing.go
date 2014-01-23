@@ -37,13 +37,13 @@ func parseEcbData() (time.Time, map[string]float64, error) {
 	}
 
 	var c currencyEnvelope
-	err = xml.Unmarshal(data, &c)
+	err = xml.Unmarshal(data, &c) // first unmarshal to get currencies
 	if err != nil {
 		return time.Time{}, nil, err
 	}
 
 	var t timeEnvelope
-	err = xml.Unmarshal(data, &t)
+	err = xml.Unmarshal(data, &t) // second unmarshal to get time
 	if err != nil {
 		return time.Time{}, nil, err
 	}
