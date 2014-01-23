@@ -47,6 +47,8 @@ func (c *CurrencyConverter) Age() float64 {
 	return delta.Hours() / 24
 }
 
+// Returns true if the currencies stores are so old they should be renewed from
+// the ECB server.
 func (c *CurrencyConverter) ShouldRenew() bool {
 	if c.Age() >= 1 {
 		today := time.Now()
@@ -57,6 +59,7 @@ func (c *CurrencyConverter) ShouldRenew() bool {
 	return false
 }
 
+// Renew the currency data by fetching the  from the ECB server.
 func (c *CurrencyConverter) Renew() error {
 	date, currencies, err := parseEcbData()
 	if err != nil {
@@ -68,6 +71,7 @@ func (c *CurrencyConverter) Renew() error {
 	}
 }
 
+// Converts an amount between two currencies.
 func (c *CurrencyConverter) Convert(amount float64, from string, to string) (float64, error) {
 	fromRate, fromOk := c.currencies[from]
 	if !fromOk {
@@ -82,6 +86,7 @@ func (c *CurrencyConverter) Convert(amount float64, from string, to string) (flo
 	return amount / fromRate * toRate, nil
 }
 
+// Converts a slice of amounts from one currency to another.
 func (c *CurrencyConverter) MultiConvert(amounts []float64, from, to string) ([]float64, error) {
 	convertedAmounts := make([]float64, len(amounts))
 	var e error
@@ -95,6 +100,8 @@ func (c *CurrencyConverter) MultiConvert(amounts []float64, from, to string) ([]
 	return convertedAmounts, e
 }
 
+// Creates a SingleCurrencyConverter that easilly translates amounts between
+// two fixed currencies.
 func (c *CurrencyConverter) GetSingleCurrencyConverter(from, to string) (*SingleCurrencyConverter, error) {
 	fromRate, fromOk := c.currencies[from]
 	if !fromOk {
@@ -109,10 +116,12 @@ func (c *CurrencyConverter) GetSingleCurrencyConverter(from, to string) (*Single
 	return &converter, nil
 }
 
+// Converts a single amount.
 func (c *SingleCurrencyConverter) Convert(amount float64) float64 {
 	return amount / c.fromRate * c.toRate
 }
 
+// Converts multiple amounts.
 func (c *SingleCurrencyConverter) MultiConvert(amounts []float64) []float64 {
 	converted := make([]float64, len(amounts))
 	for i, amount := range amounts {
