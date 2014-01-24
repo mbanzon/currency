@@ -18,7 +18,7 @@ const (
 type CurrencyConverter struct {
 	date             time.Time
 	currencies       map[string]float64
-	singleConverters []SingleCurrencyConverter
+	singleConverters []*SingleCurrencyConverter
 }
 
 // The SingleCurrencyConverter struct holds data about how to convert amounts
@@ -112,6 +112,7 @@ func (c *CurrencyConverter) GetSingleCurrencyConverter(from, to string) (*Single
 	}
 
 	converter := SingleCurrencyConverter{date: c.date, from: from, to: to, fromRate: fromRate, toRate: toRate}
+	c.singleConverters = append(c.singleConverters, &converter)
 	return &converter, nil
 }
 
