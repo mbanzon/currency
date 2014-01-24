@@ -16,8 +16,9 @@ const (
 // The CurrencyConverter struct holds the data that enables the conversion.
 // Upon creation the data is fetched from the ECB and parsed into the struct.
 type CurrencyConverter struct {
-	date       time.Time
-	currencies map[string]float64
+	date             time.Time
+	currencies       map[string]float64
+	singleConverters []SingleCurrencyConverter
 }
 
 // The SingleCurrencyConverter struct holds data about how to convert amounts
