@@ -66,6 +66,9 @@ func (c *CurrencyConverter) Renew() error {
 	} else {
 		c.date = date
 		c.currencies = currencies
+		for _, s := range c.singleConverters {
+			s.renew(c)
+		}
 		return nil
 	}
 }
@@ -128,4 +131,20 @@ func (c *SingleCurrencyConverter) MultiConvert(amounts []float64) []float64 {
 		converted[i] = c.Convert(amount)
 	}
 	return converted
+}
+
+func (c *SingleCurrencyConverter) renew(r *CurrencyConverter) error {
+	fromRate, fromOk := r.currencies[c.from]
+	if !fromOk {
+		return errors.New(fmt.Sprintf(unknown, c.from))
+	}
+	toRate, toOk := r.currencies[c.to]
+	if !toOk {
+		return errors.New(fmt.Sprintf(unknown, c.to))
+	}
+
+	c.fromRate = fromRate
+	c.toRate = toRate
+	c.date = r.date
+	return nil
 }
