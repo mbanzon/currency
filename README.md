@@ -8,6 +8,18 @@ This is a simple currency conversion library for Go.
 The currencies exchange rates are fetched from the European Central Bank (ECB).
 The raw XML feed with currencies can be found here: http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml
 
+Import the library to your Go workspace:
+
+```
+go get github.com/mbanzon/currency
+```
+
+Import the package:
+
+```Go
+import "github.com/mbanzon/currency"
+```
+
 The library enables easy conversion between currencies like this:
 
 ```Go
