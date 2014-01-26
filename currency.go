@@ -58,7 +58,8 @@ func (c *CurrencyConverter) ShouldRenew() bool {
 	return false
 }
 
-// Renew the currency data by fetching the  from the ECB server.
+// Renew the currency data by fetching the  from the ECB server. This will
+// also update all the SingleCurrencyConverter created from this CurrencyConverter.
 func (c *CurrencyConverter) Renew() error {
 	date, currencies, err := parseEcbData()
 	if err != nil {
