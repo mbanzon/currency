@@ -24,6 +24,7 @@ type timeCube struct {
 	Time string `xml:"time,attr"`
 }
 
+// structure used for parsing the currencies.
 type cube struct {
 	Name string  `xml:"currency,attr"`
 	Rate float64 `xml:"rate,attr"`
