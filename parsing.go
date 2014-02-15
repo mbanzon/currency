@@ -20,6 +20,7 @@ type timeEnvelope struct {
 	Time timeCube `xml:"Cube>Cube"`
 }
 
+// structure used for parsing the time.
 type timeCube struct {
 	Time string `xml:"time,attr"`
 }
