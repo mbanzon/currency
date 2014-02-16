@@ -11,6 +11,7 @@ const (
 	dateFormat     = "2006-01-02"
 )
 
+// Structure for getting the currencies out of the nested cube elements.
 type currencyEnvelope struct {
 	Sender string `xml:"Sender>name"`
 	Cube   []cube `xml:"Cube>Cube>Cube"`
