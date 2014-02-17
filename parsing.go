@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	ecbResourceUrl = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"
+	ecbResourceUrl = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml" // The url to fetch from.
 	dateFormat     = "2006-01-02"
 )
 
