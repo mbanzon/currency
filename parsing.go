@@ -8,7 +8,7 @@ import (
 
 const (
 	ecbResourceUrl = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml" // The url to fetch from.
-	dateFormat     = "2006-01-02"
+	dateFormat     = "2006-01-02"                                                   // The format of the dates to be parsed.
 )
 
 // Structure for getting the currencies out of the nested cube elements.
