@@ -32,6 +32,7 @@ type cube struct {
 	Rate float64 `xml:"rate,attr"`
 }
 
+// Fetches the data from the ECB and returns a map of parsed currencies.
 func parseEcbData() (time.Time, map[string]float64, error) {
 	r := simplehttp.NewGetRequest(ecbResourceUrl)
 	data, err := r.MakeRequest()
