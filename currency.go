@@ -39,6 +39,21 @@ func NewConverter() (*CurrencyConverter, error) {
 	return &converter, nil
 }
 
+func (c *CurrencyConverter) GetCurrencies() []string {
+	currencies := make([]string, len(c.currencies))
+	index := 0
+	for currency, _ := range c.currencies {
+		currencies[index] = currency
+		index++
+	}
+	return currencies
+}
+
+func (c *CurrencyConverter) HasCurrency(currency string) bool {
+	_, ok := c.currencies[currency]
+	return ok
+}
+
 // Calculates the age in days of the CurrencyConverter. The age is calculated
 // using the date supplied in the currency feed from the ECB.
 func (c *CurrencyConverter) Age() float64 {
