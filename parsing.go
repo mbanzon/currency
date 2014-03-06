@@ -17,6 +17,7 @@ type currencyEnvelope struct {
 	Cube   []cube `xml:"Cube>Cube>Cube"`
 }
 
+// structure used when parsing the time from the XML.
 type timeEnvelope struct {
 	Time timeCube `xml:"Cube>Cube"`
 }
