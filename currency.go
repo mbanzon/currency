@@ -49,6 +49,7 @@ func (c *CurrencyConverter) GetCurrencies() []string {
 	return currencies
 }
 
+// Returns true if the currency is known by the converter.
 func (c *CurrencyConverter) HasCurrency(currency string) bool {
 	_, ok := c.currencies[currency]
 	return ok
