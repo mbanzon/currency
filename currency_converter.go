@@ -127,3 +127,14 @@ func (c *CurrencyConverter) GetSingleCurrencyConverter(from, to string) (*Single
 	c.singleConverters = append(c.singleConverters, &converter)
 	return &converter, nil
 }
+
+func (c *CurrencyConverter) GetCurrencyInformation(currency string) (longName string, country string, err error) {
+	if info, ok := currencyData[currency]; ok {
+		longName = info.LongName
+		country = info.Country
+	} else {
+		err = errors.New(fmt.Sprintf(unknown, currency))
+	}
+
+	return
+}
