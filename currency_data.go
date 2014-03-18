@@ -1,144 +1,144 @@
 package currency
 
-type CurrencyInformation struct {
+type currencyInformation struct {
 	LongName string
 	Country  string
 }
 
-var currencyData = map[string]CurrencyInformation{
-	"EUR": CurrencyInformation{
+var currencyData = map[string]currencyInformation{
+	"EUR": currencyInformation{
 		LongName: "Euro",
 		Country:  "Economic and Monetary Union of the European Union",
 	},
-	"USD": CurrencyInformation{
+	"USD": currencyInformation{
 		LongName: "US Dollars",
 		Country:  "Unites States of America",
 	},
-	"JPY": CurrencyInformation{
+	"JPY": currencyInformation{
 		LongName: "Yen",
 		Country:  "Japan",
 	},
-	"BGN": CurrencyInformation{
+	"BGN": currencyInformation{
 		LongName: "Bulgarian lev",
 		Country:  "Bulgaria",
 	},
-	"CZK": CurrencyInformation{
+	"CZK": currencyInformation{
 		LongName: "Czech koruna",
 		Country:  "Czech Republic",
 	},
-	"DKK": CurrencyInformation{
+	"DKK": currencyInformation{
 		LongName: "Danish kroner",
 		Country:  "Denmark",
 	},
-	"GBP": CurrencyInformation{
+	"GBP": currencyInformation{
 		LongName: "Pound sterling",
 		Country:  "United Kingdom",
 	},
-	"HUF": CurrencyInformation{
+	"HUF": currencyInformation{
 		LongName: "Hungarian forint",
 		Country:  "Hungary",
 	},
-	"LTL": CurrencyInformation{
+	"LTL": currencyInformation{
 		LongName: "Lithuanian litas",
 		Country:  "Lithuania",
 	},
-	"LVL": CurrencyInformation{
+	"LVL": currencyInformation{
 		LongName: "Latvian lats",
 		Country:  "Latvia",
 	},
-	"PLN": CurrencyInformation{
+	"PLN": currencyInformation{
 		LongName: "Polish złoty",
 		Country:  "Poland",
 	},
-	"RON": CurrencyInformation{
+	"RON": currencyInformation{
 		LongName: "Romanian leu",
 		Country:  "Romania",
 	},
-	"SEK": CurrencyInformation{
+	"SEK": currencyInformation{
 		LongName: "Swedish krona",
 		Country:  "Sweden",
 	},
-	"CHF": CurrencyInformation{
+	"CHF": currencyInformation{
 		LongName: "Swiss franc",
 		Country:  "Switzerland",
 	},
-	"NOK": CurrencyInformation{
+	"NOK": currencyInformation{
 		LongName: "Norwegian krone",
 		Country:  "Norway",
 	},
-	"HRK": CurrencyInformation{
+	"HRK": currencyInformation{
 		LongName: "Croatian kuna",
 		Country:  "Croatia",
 	},
-	"RUB": CurrencyInformation{
+	"RUB": currencyInformation{
 		LongName: "Russian ruble",
 		Country:  "Croatia",
 	},
-	"TRY": CurrencyInformation{
+	"TRY": currencyInformation{
 		LongName: "Turkish lira",
 		Country:  "Turkey",
 	},
-	"AUD": CurrencyInformation{
+	"AUD": currencyInformation{
 		LongName: "Australian dollar",
 		Country:  "Australia",
 	},
-	"BRL": CurrencyInformation{
+	"BRL": currencyInformation{
 		LongName: "Brazilian real",
 		Country:  "Brazil",
 	},
-	"CAD": CurrencyInformation{
+	"CAD": currencyInformation{
 		LongName: "Canadian dollar",
 		Country:  "Canada",
 	},
-	"CNY": CurrencyInformation{
+	"CNY": currencyInformation{
 		LongName: "Renminbi",
 		Country:  "China",
 	},
-	"HKD": CurrencyInformation{
+	"HKD": currencyInformation{
 		LongName: "Hong Kong dollar",
 		Country:  "Hong Kong",
 	},
-	"IDR": CurrencyInformation{
+	"IDR": currencyInformation{
 		LongName: "Indonesian rupiah",
 		Country:  "Indonesia",
 	},
-	"ILS": CurrencyInformation{
+	"ILS": currencyInformation{
 		LongName: "Israeli new shekel",
 		Country:  "Israel",
 	},
-	"INR": CurrencyInformation{
+	"INR": currencyInformation{
 		LongName: "Indian rupee",
 		Country:  "India",
 	},
-	"KRW": CurrencyInformation{
+	"KRW": currencyInformation{
 		LongName: "South Korean won",
 		Country:  "South Korea",
 	},
-	"MXN": CurrencyInformation{
+	"MXN": currencyInformation{
 		LongName: "Mexican peso",
 		Country:  "Mexico",
 	},
-	"MYR": CurrencyInformation{
+	"MYR": currencyInformation{
 		LongName: "Malaysian ringgit",
 		Country:  "Malaysia",
 	},
-	"NZD": CurrencyInformation{
+	"NZD": currencyInformation{
 		LongName: "New Zealand dollar",
 		Country:  "New Zealand",
 	},
-	"PHP": CurrencyInformation{
+	"PHP": currencyInformation{
 		LongName: "Philippine peso",
 		Country:  "Philippines",
 	},
-	"SGD": CurrencyInformation{
+	"SGD": currencyInformation{
 		LongName: "Singapore dollar",
 		Country:  "Singapore",
 	},
-	"THB": CurrencyInformation{
+	"THB": currencyInformation{
 		LongName: "Thai baht",
 		Country:  "Thailand",
 	},
-	"ZAR": CurrencyInformation{
+	"ZAR": currencyInformation{
 		LongName: "South African rand",
 		Country:  "South Africa",
 	},
