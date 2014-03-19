@@ -5,6 +5,7 @@ type currencyInformation struct {
 	Country  string
 }
 
+// Hard-coded values with extended information about currencies.
 var currencyData = map[string]currencyInformation{
 	"EUR": currencyInformation{
 		LongName: "Euro",
