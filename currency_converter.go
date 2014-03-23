@@ -51,13 +51,13 @@ func (c *CurrencyConverter) HasCurrency(currency string) bool {
 // using the date supplied in the currency feed from the ECB.
 func (c *CurrencyConverter) Age() float64 {
 	delta := c.date.Sub(time.Now())
-	return delta.Hours() / 24
+	return delta.Minutes()
 }
 
 // Returns true if the currencies stores are so old they should be renewed from
 // the ECB server.
-func (c *CurrencyConverter) ShouldRenew() bool {
-	if c.Age() >= 1 {
+func (c *CurrencyConverter) ShouldRenew(minutes float64) bool {
+	if c.Age() >= minutes {
 		today := time.Now()
 		if today.Weekday() > time.Sunday && today.Weekday() < time.Saturday {
 			return true
