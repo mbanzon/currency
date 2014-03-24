@@ -16,6 +16,7 @@ const (
 // The CurrencyConverter struct holds the data that enables the conversion.
 // Upon creation the data is fetched from the ECB and parsed into the struct.
 type CurrencyConverter struct {
+	lastUpdate       time.Time
 	date             time.Time
 	currencies       map[string]float64
 	singleConverters []*SingleCurrencyConverter
@@ -27,7 +28,7 @@ func NewConverter() (*CurrencyConverter, error) {
 	if err != nil {
 		return nil, err
 	}
-	converter := CurrencyConverter{date: currencyTime, currencies: currencies}
+	converter := CurrencyConverter{date: currencyTime, currencies: currencies, lastUpdate: time.Now()}
 	return &converter, nil
 }
 
@@ -50,7 +51,7 @@ func (c *CurrencyConverter) HasCurrency(currency string) bool {
 // Calculates the age in days of the CurrencyConverter. The age is calculated
 // using the date supplied in the currency feed from the ECB.
 func (c *CurrencyConverter) Age() float64 {
-	delta := c.date.Sub(time.Now())
+	delta := time.Now().Sub(c.lastUpdate)
 	return delta.Minutes()
 }
 
@@ -58,10 +59,7 @@ func (c *CurrencyConverter) Age() float64 {
 // the ECB server.
 func (c *CurrencyConverter) ShouldRenew(minutes float64) bool {
 	if c.Age() >= minutes {
-		today := time.Now()
-		if today.Weekday() > time.Sunday && today.Weekday() < time.Saturday {
-			return true
-		}
+		return true
 	}
 	return false
 }
@@ -73,6 +71,7 @@ func (c *CurrencyConverter) Renew() error {
 	if err != nil {
 		return err
 	} else {
+		c.lastUpdate = time.Now()
 		c.date = date
 		c.currencies = currencies
 		for _, s := range c.singleConverters {
