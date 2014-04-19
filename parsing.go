@@ -35,20 +35,22 @@ type cube struct {
 
 // Fetches the data from the ECB and returns a map of parsed currencies.
 func parseEcbData() (time.Time, map[string]float64, error) {
-	r := simplehttp.NewHTTPRequest(ecbResourceUrl)
-	response, err := r.MakeGetRequest()
+	_, data, err := simplehttp.Request{
+		Url: ecbResourceUrl,
+	}.Get()
+
 	if err != nil {
 		return time.Time{}, nil, err
 	}
 
 	var c currencyEnvelope
-	err = xml.Unmarshal(response.Data, &c) // first unmarshal to get currencies
+	err = xml.Unmarshal(data, &c) // first unmarshal to get currencies
 	if err != nil {
 		return time.Time{}, nil, err
 	}
 
 	var t timeEnvelope
-	err = xml.Unmarshal(response.Data, &t) // second unmarshal to get time
+	err = xml.Unmarshal(data, &t) // second unmarshal to get time
 	if err != nil {
 		return time.Time{}, nil, err
 	}
