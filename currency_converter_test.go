@@ -78,6 +78,13 @@ func TestRenew(t *testing.T) {
 	if err != nil {
 		t.Fatal("Renew failed.", err)
 	}
+
+	alternativeResourceUrl = "not working URL"
+	err = converter.Renew()
+	if err == nil {
+		t.Fatal("Alternative URL should not be working.")
+	}
+	alternativeResourceUrl = ""
 }
 
 func TestShouldRenew(t *testing.T) {
@@ -123,4 +130,13 @@ func TestCurrencyInformation(t *testing.T) {
 	if err == nil {
 		t.Fatal("Currency shouldn't be present.")
 	}
+}
+
+func TestFailingCreation(t *testing.T) {
+	alternativeResourceUrl = "not working URL"
+	_, err := NewConverter()
+	if err == nil {
+		t.Fatal("Alternative URL should not be working.")
+	}
+	alternativeResourceUrl = ""
 }
