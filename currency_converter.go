@@ -48,17 +48,20 @@ func (c *CurrencyConverter) HasCurrency(currency string) bool {
 	return ok
 }
 
-// Calculates the age in days of the CurrencyConverter. The age is calculated
-// using the date supplied in the currency feed from the ECB.
 func (c *CurrencyConverter) Age() float64 {
 	delta := time.Now().Sub(c.lastUpdate)
-	return delta.Minutes()
+	return delta.Seconds()
+}
+
+func (c *CurrencyConverter) CurrencyAge() float64 {
+	delta := time.Now().Sub(c.date)
+	return delta.Seconds()
 }
 
 // Returns true if the currencies stores are so old they should be renewed from
 // the ECB server.
-func (c *CurrencyConverter) ShouldRenew(minutes float64) bool {
-	if c.Age() >= minutes {
+func (c *CurrencyConverter) ShouldRenew(seconds float64) bool {
+	if c.Age() >= seconds {
 		return true
 	}
 	return false
