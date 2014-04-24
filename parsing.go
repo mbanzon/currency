@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+var alternativeResourceUrl string
+
 const (
 	ecbResourceUrl = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml" // The url to fetch from.
 	dateFormat     = "2006-01-02"                                                   // The format of the dates to be parsed.
@@ -35,9 +37,18 @@ type cube struct {
 
 // Fetches the data from the ECB and returns a map of parsed currencies.
 func parseEcbData() (time.Time, map[string]float64, error) {
-	_, data, err := simplehttp.Request{
-		Url: ecbResourceUrl,
-	}.Get()
+	var data []byte
+	var err error
+
+	if alternativeResourceUrl == "" {
+		_, data, err = simplehttp.Request{
+			Url: ecbResourceUrl,
+		}.Get()
+	} else {
+		_, data, err = simplehttp.Request{
+			Url: alternativeResourceUrl,
+		}.Get()
+	}
 
 	if err != nil {
 		return time.Time{}, nil, err
