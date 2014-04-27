@@ -15,7 +15,7 @@ func init() {
 }
 
 func TestSingleRenew(t *testing.T) {
-	_, err := converter.GetSingleCurrencyConverter("EUR", "DKK")
+	_, err := converter.GetSingleCurrencyConverter(KNOWN_CURRENCY_1, KNOWN_CURRENCY_2)
 	if err != nil {
 		t.Fatal("Couldn't create single converter.", err)
 	}
@@ -33,12 +33,12 @@ func TestSingleConverterCreation(t *testing.T) {
 		}
 	}
 
-	_, err1 := converter.GetSingleCurrencyConverter("EUR", "not present")
+	_, err1 := converter.GetSingleCurrencyConverter(KNOWN_CURRENCY_1, NOT_PRESENT_CURRENCY)
 	if err1 == nil {
 		t.Fatal("Currency shouldn't be present.")
 	}
 
-	_, err2 := converter.GetSingleCurrencyConverter("not present", "EUR")
+	_, err2 := converter.GetSingleCurrencyConverter(NOT_PRESENT_CURRENCY, KNOWN_CURRENCY_1)
 	if err2 == nil {
 		t.Fatal("Currency shouldn't be present.")
 	}
@@ -49,7 +49,7 @@ func TestSingleMultiConvert(t *testing.T) {
 	for i := 100; i < 200; i++ {
 		amounts = append(amounts, float64(i)*rand.Float64())
 	}
-	s, err := converter.GetSingleCurrencyConverter("EUR", "DKK")
+	s, err := converter.GetSingleCurrencyConverter(KNOWN_CURRENCY_1, KNOWN_CURRENCY_2)
 	if err != nil {
 		t.Fatal("Couldn't create single converter.", err)
 	}

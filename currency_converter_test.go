@@ -9,6 +9,13 @@ import (
 
 var converter *CurrencyConverter
 
+const (
+	KNOWN_CURRENCY_1     = "EUR"
+	KNOWN_CURRENCY_2     = "DKK"
+	NOT_PRESENT_CURRENCY = "not present"
+	NOT_WORKING_URL      = "http://what.ever.dude"
+)
+
 func init() {
 	c, err := NewConverter()
 	if err != nil {
@@ -29,13 +36,13 @@ func TestConverterCreation(t *testing.T) {
 func TestConvertion(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		amount := rand.Float64() * float64(i)
-		_, err := converter.Convert(amount, "EUR", "DKK")
+		_, err := converter.Convert(amount, KNOWN_CURRENCY_1, KNOWN_CURRENCY_2)
 		if err != nil {
 			t.Fatal("Convertion failed.", err)
 		}
 	}
 
-	_, err := converter.Convert(100, "EUR", "not present")
+	_, err := converter.Convert(100, KNOWN_CURRENCY_1, NOT_PRESENT_CURRENCY)
 	if err == nil {
 		t.Fatal("Currency shouldn't be present.")
 	}
@@ -44,7 +51,7 @@ func TestConvertion(t *testing.T) {
 func TestNoConvertion(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		amount := rand.Float64() * float64(i)
-		converted, err := converter.Convert(amount, "EUR", "EUR")
+		converted, err := converter.Convert(amount, KNOWN_CURRENCY_1, KNOWN_CURRENCY_1)
 		if err != nil {
 			t.Fatal("Convertion failed.", err)
 		}
@@ -79,7 +86,7 @@ func TestRenew(t *testing.T) {
 		t.Fatal("Renew failed.", err)
 	}
 
-	alternativeResourceUrl = "not working URL"
+	alternativeResourceUrl = NOT_WORKING_URL
 	err = converter.Renew()
 	if err == nil {
 		t.Fatal("Alternative URL should not be working.")
@@ -102,7 +109,7 @@ func TestMultiConvert(t *testing.T) {
 	for i := 100; i < 200; i++ {
 		amounts = append(amounts, float64(i)*rand.Float64())
 	}
-	converted, err := converter.MultiConvert(amounts, "EUR", "DKK")
+	converted, err := converter.MultiConvert(amounts, KNOWN_CURRENCY_1, KNOWN_CURRENCY_2)
 
 	if err != nil {
 		t.Fatal("Couldn't multiconvert.", err)
@@ -112,7 +119,7 @@ func TestMultiConvert(t *testing.T) {
 		t.Fatal("Incorrect number of conversions.")
 	}
 
-	_, err2 := converter.MultiConvert(amounts, "not present", "EUR")
+	_, err2 := converter.MultiConvert(amounts, NOT_PRESENT_CURRENCY, KNOWN_CURRENCY_1)
 	if err2 == nil {
 		t.Fatal("Currency shouldn't be present.")
 	}
@@ -126,14 +133,14 @@ func TestCurrencyInformation(t *testing.T) {
 		}
 	}
 
-	_, _, err := converter.GetCurrencyInformation("not present")
+	_, _, err := converter.GetCurrencyInformation(NOT_PRESENT_CURRENCY)
 	if err == nil {
 		t.Fatal("Currency shouldn't be present.")
 	}
 }
 
 func TestFailingCreation(t *testing.T) {
-	alternativeResourceUrl = "not working URL"
+	alternativeResourceUrl = NOT_WORKING_URL
 	_, err := NewConverter()
 	if err == nil {
 		t.Fatal("Alternative URL should not be working.")
