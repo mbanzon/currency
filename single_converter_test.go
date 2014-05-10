@@ -102,7 +102,7 @@ func TestFailingParsing(t *testing.T) {
 		t.Fail()
 	}
 
-	server.SetNextResponse([]byte(fooXml))
+	server.SetNextResponse([]byte(""))
 	err = converter.Renew()
 	if err == nil {
 		t.Fail()
