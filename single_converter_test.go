@@ -1,8 +1,10 @@
 package currency
 
 import (
+	"github.com/mbanzon/dummyserver"
 	"log"
 	"math/rand"
+	"strconv"
 	"testing"
 )
 
@@ -58,5 +60,51 @@ func TestSingleMultiConvert(t *testing.T) {
 
 	if len(amounts) != len(converted) {
 		t.Fatal("Incorrect number of conversions.")
+	}
+}
+
+func TestFailingSingleRenew(t *testing.T) {
+	_, err := converter.GetSingleCurrencyConverter(KNOWN_CURRENCY_1, KNOWN_CURRENCY_2)
+	if err != nil {
+		t.Fail()
+	}
+
+	_, err = converter.GetSingleCurrencyConverter(KNOWN_CURRENCY_2, KNOWN_CURRENCY_1)
+	if err != nil {
+		t.Fail()
+	}
+
+	server := dummyserver.NewRandomServer()
+	go server.Start()
+	alternativeResourceUrl = "http://localhost:" + strconv.Itoa(server.GetPort()) + "/"
+	server.SetNextResponse([]byte(missingCurrenciesXml))
+
+	err = converter.Renew()
+	if err != nil {
+		t.Fail()
+	}
+}
+
+func TestFailingParsing(t *testing.T) {
+	server := dummyserver.NewRandomServer()
+	go server.Start()
+	alternativeResourceUrl = "http://localhost:" + strconv.Itoa(server.GetPort()) + "/"
+
+	server.SetNextResponse([]byte(missingCurrencyBlockXml))
+	err := converter.Renew()
+	if err == nil {
+		t.Fail()
+	}
+
+	server.SetNextResponse([]byte(invalidTimeXml))
+	err = converter.Renew()
+	if err == nil {
+		t.Fail()
+	}
+
+	server.SetNextResponse([]byte(""))
+	err = converter.Renew()
+	if err == nil {
+		t.Fail()
 	}
 }
