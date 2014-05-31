@@ -32,6 +32,10 @@ func NewConverter() (*CurrencyConverter, error) {
 	return &converter, nil
 }
 
+func (c *CurrencyConverter) GetCurrencyDate() time.Time {
+	return c.date
+}
+
 func (c *CurrencyConverter) GetCurrencies() []string {
 	currencies := make([]string, len(c.currencies))
 	index := 0
