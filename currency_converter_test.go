@@ -27,8 +27,7 @@ func init() {
 func TestConverterCreation(t *testing.T) {
 	currencies := converter.GetCurrencies()
 
-	// must add one for EUR
-	if len(currencies)+1 != len(currencyData) {
+	if len(currencies) != len(currencyData) {
 		t.Fatalf("Wrong currency number (%d vs %d)", len(currencies), len(currencyData))
 	}
 }
