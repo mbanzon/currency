@@ -39,14 +39,6 @@ var currencyData = map[string]currencyInformation{
 		LongName: "Hungarian forint",
 		Country:  "Hungary",
 	},
-	"LTL": currencyInformation{
-		LongName: "Lithuanian litas",
-		Country:  "Lithuania",
-	},
-	"LVL": currencyInformation{
-		LongName: "Latvian lats",
-		Country:  "Latvia",
-	},
 	"PLN": currencyInformation{
 		LongName: "Polish złoty",
 		Country:  "Poland",
