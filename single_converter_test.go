@@ -74,7 +74,7 @@ func TestFailingSingleRenew(t *testing.T) {
 		t.Fail()
 	}
 
-	server := dummyserver.NewRandomServer()
+	server := dummyserver.NewServer(54321)
 	go server.Start()
 	alternativeResourceUrl = "http://localhost:" + strconv.Itoa(server.GetPort()) + "/"
 	server.SetNextResponse([]byte(missingCurrenciesXml))
@@ -86,7 +86,7 @@ func TestFailingSingleRenew(t *testing.T) {
 }
 
 func TestFailingParsing(t *testing.T) {
-	server := dummyserver.NewRandomServer()
+	server := dummyserver.NewServer(54321)
 	go server.Start()
 	alternativeResourceUrl = "http://localhost:" + strconv.Itoa(server.GetPort()) + "/"
 
