@@ -1,11 +1,7 @@
 language: go
 go:
-  - 1.3
-  - 1.4
   - release
 env:
   - GOARCH=amd64
 script:
-  - go get github.com/mbanzon/dummyserver
-  - go get github.com/mbanzon/simplehttp
   - go test

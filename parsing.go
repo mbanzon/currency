@@ -2,7 +2,9 @@ package currency
 
 import (
 	"encoding/xml"
-	"github.com/mbanzon/simplehttp"
+	"fmt"
+	"io/ioutil"
+	"net/http"
 	"time"
 )
 
@@ -37,19 +39,29 @@ type cube struct {
 
 // Fetches the data from the ECB and returns a map of parsed currencies.
 func parseEcbData() (time.Time, map[string]float64, error) {
-	var data []byte
+	var res *http.Response
 	var err error
 
 	if alternativeResourceUrl == "" {
-		_, data, err = simplehttp.Request{
-			Url: ecbResourceUrl,
-		}.Get()
+		res, err = http.Get(ecbResourceUrl)
 	} else {
-		_, data, err = simplehttp.Request{
-			Url: alternativeResourceUrl,
-		}.Get()
+		res, err = http.Get(alternativeResourceUrl)
 	}
 
+	if err != nil {
+		return time.Time{}, nil, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		return time.Time{}, nil, fmt.Errorf("Error getting currency data from server, code: %d", res.StatusCode)
+	}
+
+	data, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return time.Time{}, nil, err
+	}
+
+	err = res.Body.Close()
 	if err != nil {
 		return time.Time{}, nil, err
 	}
