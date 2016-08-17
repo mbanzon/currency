@@ -9,6 +9,15 @@ import (
 )
 
 var alternativeResourceUrl string
+var client *http.Client
+
+func init() {
+	client = http.DefaultClient
+}
+
+func SetClient(c *http.Client) {
+	client = c
+}
 
 const (
 	ecbResourceUrl = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml" // The url to fetch from.
@@ -43,9 +52,9 @@ func parseEcbData() (time.Time, map[string]float64, error) {
 	var err error
 
 	if alternativeResourceUrl == "" {
-		res, err = http.Get(ecbResourceUrl)
+		res, err = client.Get(ecbResourceUrl)
 	} else {
-		res, err = http.Get(alternativeResourceUrl)
+		res, err = client.Get(alternativeResourceUrl)
 	}
 
 	if err != nil {

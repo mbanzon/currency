@@ -1,7 +1,7 @@
 currency
 ========
 
-[![Build Status](https://travis-ci.org/mbanzon/currency.png?branch=master)](https://travis-ci.org/mbanzon/currency)
+[![Build Status](https://travis-ci.org/mbanzon/currency.png?branch=master)](https://travis-ci.org/mbanzon/currency) [![GoDoc](https://godoc.org/gopkg.in/mbanzon/currency.v0?status.svg)](https://godoc.org/gopkg.in/mbanzon/currency.v0)
 
 This is a simple currency conversion library for Go.
 
@@ -11,13 +11,13 @@ The raw XML feed with currencies can be found here: http://www.ecb.europa.eu/sta
 Import the library to your Go workspace:
 
 ```
-go get github.com/mbanzon/currency
+go get gopkg.in/mbanzon/currency.v0
 ```
 
 Import the package:
 
 ```Go
-import "github.com/mbanzon/currency"
+import "gopkg.in/mbanzon/currency.v0"
 ```
 
 The library enables easy conversion between currencies like this:
