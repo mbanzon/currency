@@ -1,7 +1,8 @@
 currency
 ========
 
-[![Build Status](https://travis-ci.org/mbanzon/currency.png?branch=master)](https://travis-ci.org/mbanzon/currency) [![GoDoc](https://godoc.org/gopkg.in/mbanzon/currency.v1?status.svg)](https://godoc.org/gopkg.in/mbanzon/currency.v1)
+# IMPORTANT: This library has been archived and is no longer maintained - it probably doesn't work!
+
 
 This is a simple currency conversion library for Go.
 
